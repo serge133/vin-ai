@@ -1,0 +1,11 @@
+- Python
+* List of executable Keywords
+executable_keywords = string[]
+examples: make, run, delete, search, edit
+
+programs = string[]
+examples: python, internet, vscode
+
+- Sqlite3
+TABLES:
+  - Scripts with Keywords
