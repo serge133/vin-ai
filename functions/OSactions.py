@@ -2,7 +2,7 @@ import os
 import shutil
 from speechrecognition import ai_ask
 
-home_folder = '/Users/michaelbatrakov/Desktop/Python/walner/test'
+working_folder = '/Users/michaelbatrakov/Desktop/Python/walner/test'
 
 
 # def ai_confirm(message):
@@ -27,22 +27,34 @@ def create_folder():
   # folder_name = str(input("Name of the Folder: "))
   # folder_location = str(input('Where should this folder be? '))
   curr_working_directory = os.getcwd()
-  folder_name = ai_ask("What is the name of the folder?", '')
+  folder_to_create = ai_ask("What is the name of the folder?", '')
   print('Folder locations')
   folder_location = ''
-  print(f"I will create {folder_name} at {folder_location} for you sir")
+  print(f"I will create {folder_to_create} at {folder_location} for you sir")
   confirm = ai_ask("Is this correct? [yes, no]", 'no')
   if confirm == 'yes':
-    os.mkdir(f'{home_folder}/{folder_name}')
+    try:
+      os.mkdir(f'{working_folder}/{folder_to_create}')
+    except:
+      print(f'Could not make folder {folder_to_create} :(')
   else:
-    print('Did not work')
+    print('No Confirmation')
 
 def delete_folder():
-  # if ai_confirm('Are you sure?'):
-  files = os.listdir(home_folder)
+  print(f"I am going to delete a folder in {working_folder}")
+  files = os.listdir(working_folder)
   print(*files, sep='\n')
-  folder_name = str(input('Nome of the Folder: '))
-  shutil.rmtree(f'{home_folder}/{folder_name}')
+  folder_to_delete = ai_ask("What folder should I delete?", '')
+  confirm = ai_ask(f'I am going to delete {folder_to_delete}, are you sure [yes, no]', 'no')
+  if confirm == 'yes':
+    try:
+      shutil.rmtree(f'{working_folder}/{folder_to_delete}')
+    except:
+      print(f'Could not delete {folder_to_delete} :(')
+  else:
+    print('No Confirmation')
+
+    
 
 # ! Work in progress
 # params: src, destination

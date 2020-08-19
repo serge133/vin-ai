@@ -9,7 +9,7 @@ def engine(ask):
   lowercase_ask = ask.lower()
   ask_array = lowercase_ask.split(' ')
 
-  c.execute('SELECT name, super_keywords, keywords, script_function from AI')
+  c.execute('SELECT name, super_keywords, keywords, antikeywords, script_function from AI')
   rows = c.fetchall()
   points_array = []
   # Calculating Rows
@@ -17,6 +17,7 @@ def engine(ask):
     points = 0
     super_keywords=row[1].split(',')
     keywords=row[2].split(',')
+    antikeywords=row[3].split(',')
 
     for super_keyword in super_keywords:
       if super_keyword in lowercase_ask:
@@ -26,13 +27,16 @@ def engine(ask):
       for keyword in keywords:
         if keyword in lowercase_ask:
           points+=1
+      for antikeyword in antikeywords:
+        if antikeyword in lowercase_ask:
+          points-=2
 
     points_array.append(points)
   largest_index = util.index_of_largest_element(points_array)
   matched = rows[largest_index]
   # Find unmatched keywords
   matched_superkeywords = matched[1]
-  matched_keywords = []
+  matched_keywords = matched[2]
   unmatched_keywords = []
   
 
@@ -40,6 +44,6 @@ def engine(ask):
     if a not in matched_superkeywords and a not in matched_keywords:
       unmatched_keywords.append(a)
   
-  script = str(matched[3] + '()')
-  print(script)
+  script = str(matched[4] + '()')
+  # print(script)
   eval(script)
