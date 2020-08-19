@@ -1,34 +1,48 @@
 import os
 import shutil
-import speech_recognition as sr     # import the library
+from speechrecognition import ai_ask
 
-home_folder = '/Users/michaelbatrakov/Desktop'
-
-
-def ai_confirm(message):
-  print(message)
-  r = sr.Recognizer()                 # initialize recognizer
-  with sr.Microphone() as source:     # mention source it will be either Microphone or audio files.
-      audio = r.listen(source)        # listen to the source
-      try:
-          text = r.recognize_google(audio)    # use recognizer to convert our audio into text part.
-          print(text)
-          if text == 'yes':
-            return True
-          else:
-            return False
-      except:
-          print("Something didn't work")  
-          return False  # In case of voice not recognized  clearly
+home_folder = '/Users/michaelbatrakov/Desktop/Python/walner/test'
 
 
-def create_folder(name):
-  print(f"I will create {name} for you sir")
-  os.mkdir(f'{home_folder}/{name}')
+# def ai_confirm(message):
+#   print(message)
+#   r = sr.Recognizer()                 # initialize recognizer
+#   with sr.Microphone() as source:     # mention source it will be either Microphone or audio files.
+#       audio = r.listen(source)        # listen to the source
+#       try:
+#           text = r.recognize_google(audio)    # use recognizer to convert our audio into text part.
+#           print(text)
+#           if text == 'yes':
+#             return True
+#           else:
+#             return False
+#       except:
+#           print("Something didn't work")  
+#           return False  # In case of voice not recognized  clearly
 
-def delete_folder(name):
-  if ai_confirm('Are you sure?'):
-    shutil.rmtree(f'{home_folder}/{name}')
+
+
+def create_folder():
+  # folder_name = str(input("Name of the Folder: "))
+  # folder_location = str(input('Where should this folder be? '))
+  curr_working_directory = os.getcwd()
+  folder_name = ai_ask("What is the name of the folder?", '')
+  print('Folder locations')
+  folder_location = ''
+  print(f"I will create {folder_name} at {folder_location} for you sir")
+  confirm = ai_ask("Is this correct? [yes, no]", 'no')
+  if confirm == 'yes':
+    os.mkdir(f'{home_folder}/{folder_name}')
+  else:
+    print('Did not work')
+
+def delete_folder():
+  # if ai_confirm('Are you sure?'):
+  files = os.listdir(home_folder)
+  print(*files, sep='\n')
+  folder_name = str(input('Nome of the Folder: '))
+  shutil.rmtree(f'{home_folder}/{folder_name}')
 
 # ! Work in progress
 # params: src, destination
