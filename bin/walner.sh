@@ -3,9 +3,13 @@ cd ~/Desktop/Python/walner
 
 helpmenu() {
   echo '''
-		default = execute AI
     -h | --help = is the help menu
     -t | --train = activate training mode
+		AI = blue
+		You = pink
+		action = bold
+		error = red
+		warning = yellow
   '''
 }
 
