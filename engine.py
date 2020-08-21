@@ -1,7 +1,8 @@
 import sqlite3
 import util
 from scripts import OSactions
-from coloring_terminal import bcolors
+from scripts import AIactions
+import printing
 
 conn = sqlite3.connect('vin.db')
 c = conn.cursor()
@@ -79,10 +80,9 @@ def verbose_ai(ask):
     return matched
   
   chosen_category = match()[4]
-  print(f'{bcolors.BOLD}script category: {chosen_category}{bcolors.ENDC}')
-
+  printing.print_action(f'script categroy {chosen_category}')
   c.execute(f'SELECT name, super_keywords, keywords, antikeywords, script_function from {chosen_category}')
   rows = c.fetchall()
   best_script_match = match()[4]
-  print(f'{bcolors.BOLD}script: {best_script_match}{bcolors.ENDC}')
+  printing.print_action(f'script: {best_script_match}')
   # eval(best_script_match + f'("{lowercase_ask}")')

@@ -1,5 +1,5 @@
 # !/bin/zsh
-cd ~/Desktop/Python/walner
+cd ~/Desktop/Python/AOSA
 
 helpmenu() {
   echo '''

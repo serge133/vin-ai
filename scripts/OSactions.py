@@ -1,10 +1,9 @@
 import os
 import shutil
 import printing
-import subprocess
 from name_inference import name_inference_engine
 
-working_folder = '/Users/michaelbatrakov/Desktop/Python/walner/test'
+working_folder = '/Users/michaelbatrakov/Desktop/Python/AOSA/test'
 
 # The engine always provides the lowercase sentence
 # This is where the name inference engine is used

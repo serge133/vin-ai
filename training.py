@@ -9,7 +9,7 @@ conn = sqlite3.connect('vin.db')
 c = conn.cursor()
 
 def train():
-  option = str(input('Train me master\n[teach, add script category, edit script category, reteach, unteach, test, exit]: '))
+  option = str(input('Train me master\n[teach, add category, edit category, reteach, unteach, test, exit]: '))
 
   def done():
     print('Done.')
@@ -46,7 +46,7 @@ def train():
     # We can also close the connection if we are done with it.
     # Just be sure any changes have been committed or they will be lost.
     done()
-  elif option == 'add script category':
+  elif option == 'add category':
     script_category = str(input('Script Category: '))
     # Creates a table
     c.execute(f"CREATE TABLE IF NOT EXISTS {script_category}(name TEXT, super_keywords TEXT, keywords TEXT, antikeywords TEXT, script_function TEXT)")
@@ -59,7 +59,7 @@ def train():
     entry = (name, super_keywords, keywords, anti_keywords, script_category)
     c.execute(f'''INSERT INTO AI(name, super_keywords, keywords, antikeywords, script_category) VALUES(?, ?, ?, ?, ?)''', entry)
     done()
-  elif option == 'edit script category':
+  elif option == 'edit category':
     c.execute('SELECT name FROM AI')
     rows = c.fetchall()
     index=0
