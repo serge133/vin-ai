@@ -3,16 +3,15 @@ import getpass
 import shutil
 import printing
 from name_inference import name_inference_engine
+from learning_engine import learning_engine
 
 user = getpass.getuser()
 working_folder = f'/Users/{user}'
 
+# * Learning Engine goes after the name inference engine to not count name keywords
+
 # The engine always provides the lowercase sentence
 # This is where the name inference engine is used
-
-def goodbye():
-  printing.ai_speak('Have a nice day :)')
-  # print('good bye')
 
 # ? Each of these actions have one parameter called sentence
 # ? sentence is what the user said to trigger this function
@@ -26,12 +25,8 @@ folder_locations = [
   f'{working_folder}/Desktop/Python/Aosa/test'
 ]
 
-def create_folder(sentence):
+def create_folder(sentence, best_category, best_match):
   printing.print_action('CREATING FOLDER')
-  # folder_name = str(input("Name of the Folder: "))
-  # folder_location = str(input('Where should this folder be? '))
-  # Gets next element after the preword if exists
-  
   name_inference_prewords = ['named', 'called']
   name_inference = name_inference_engine(name_inference_prewords, sentence)
   
@@ -58,18 +53,17 @@ def create_folder(sentence):
     else:
       printing.ai_speak("What is the name of the folder")
       folder_to_create = str(printing.user_input())
-
+    learning_engine(sentence, best_category, best_match, folder_to_create)
     try:
       os.mkdir(f'{folder_location}/{folder_to_create}')
       printing.print_action(f"CREATED {folder_to_create} FOLDER")
-      goodbye()
     except:
       printing.print_error(f'Could not make folder "{folder_to_create}" :(')
     
   else:
     printing.print_error('Incorrect Folder')
 # ------------------------------------------------------------------------------------
-def delete_folder(sentence):
+def delete_folder(sentence, best_category, best_match):
   printing.print_action("MOVING FOLDERS TO TRASH")
 
   trash_folder = f'/Users/{user}/.aosa_trash'
@@ -103,14 +97,12 @@ def delete_folder(sentence):
       folder_to_delete = name_inference
     else:
       folder_to_delete = str(printing.user_input())
-    # if not folder_to_delete:
-    #   print_error('Folder not specified')
+    learning_engine(sentence, best_category, best_match, folder_to_delete)
 
     try:
       # shutil.rmtree(f'{home_folder}/{folder_to_delete}')
       shutil.move(f'{folder_location}/{folder_to_delete}', trash_folder)
       printing.print_action(f"DELETED {folder_to_delete}")
-      goodbye()
     except:
       printing.print_error(f'Could not delete {folder_to_delete} :(')
   else:

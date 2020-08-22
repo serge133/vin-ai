@@ -2,7 +2,11 @@ import printing
 # import executable
 # from engine import verbose_ai
 
-def leave(sentence):
-  printing.ai_speak("Good bye :)")
-  # execute()
-  # engine.ai('create a folder')
+def calculator(sentence):
+  printing.print_action("CALCULATOR (leave)")
+  # printing.ai_speak("You can: +/*-**")
+  expression = printing.user_input()
+  if expression == 'leave':
+    return
+  print(eval(expression))
+  calculator("")
