@@ -3,6 +3,11 @@ import sqlite3
 conn = sqlite3.connect('vin.db')
 c = conn.cursor()
 
+# The learning engine's purpose is to evaluate the correctness of a scipt
+# and based on the users answer record the keywords into the database
+# to better improve the algorithm for next time
+# @exlusionary_keywords are meant to not record inferenced names or uniqe values
+
 def learning_engine(sentence, best_category, best_match, exclusionary_keywords):
   sentence_array = sentence.split(' ')
   # BEST MATCH INCLUDES

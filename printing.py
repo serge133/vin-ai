@@ -8,6 +8,8 @@ ENDC = '\033[0m'
 
 def ai_speak(message):
   print(f'{AI}AI - {message}{ENDC}')
+  # AILabel = tk.Label(window, text=message)
+  # AILabel.grid(row = 2, column=2)
 
 
 def user_input(): 

@@ -48,10 +48,11 @@ def ai(ask):
   best_script_match = best_match[4]
   if lowercase_ask == 'exit':
     return goodbye()
-  printing.ai_speak(f'Is {best_script_match} correct?')
+  printing.ai_speak(f'Is the action "{best_match[0]}" correct?')
   was_engine_accurate = str(printing.user_input())
+  # // was_engine_accurate = printing.ai.set(f'Is the action {best_match[0]} correct?')
+  # Accuracy learning
   if was_engine_accurate == 'yes':
-    # Accuracy learning
     eval(f'{best_script_match}("{lowercase_ask}", {best_category}, {best_match})')
     # Run again
   else:
