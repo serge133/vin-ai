@@ -10,7 +10,8 @@ c = conn.cursor()
 def goodbye():
   printing.ai_speak("Have a nice day :)")
 
-# script function is unique
+# script function is unique for querying
+# adds unique keywords to the keywords section
 def add_unique_keywords(script_function, lowercase_ask_list):
   c.execute(f'SELECT keywords from AI WHERE script_function=?', (script_function,))
   # gets just a string of keywords
@@ -20,6 +21,17 @@ def add_unique_keywords(script_function, lowercase_ask_list):
       keywords+=f',{word}'
   
   c.execute(f'UPDATE AI SET keywords = "{keywords}" WHERE script_function = "{script_function}"')
+  conn.commit()
+
+def add_unique_antikeywords(script_function, lowercase_ask_list):
+  c.execute(f'SELECT antikeywords from AI WHERE script_function=?', (script_function,))
+  # gets just a string of keywords
+  antikeywords = c.fetchall()[0][0]
+  for word in lowercase_ask_list:
+    if word not in antikeywords:
+      antikeywords+=f',{word}'
+  
+  c.execute(f'UPDATE AI SET antikeywords = "{antikeywords}" WHERE script_function = "{script_function}"')
   conn.commit()
   
 
@@ -68,7 +80,8 @@ def ai(ask):
     add_unique_keywords(best_script_match, lowercase_ask_list)
     # Execute script
   else:
-    printing.ai_speak('That is unfortunate, I suggest exit and type aosa --train to train me')
+    add_unique_antikeywords(best_script_match, lowercase_ask_list)
+    printing.ai_speak('How unfortunate, added to antikeywords, I suggest training')
   printing.ai_speak("What should I do next?")
   user_ask = str(printing.user_input())
   ai(user_ask)

@@ -5,15 +5,6 @@ from scripts import OSactions
 from coloring_terminal import bcolors
 from engine import verbose_ai
 
-# Useless
-class Script:
-  def __init__(self, name, super_keywords, keywords, anti_keywords, script_function):
-    self.name = name
-    self.super_keywords = super_keywords
-    self.keywords = keywords
-    self.anti_keywords = anti_keywords
-    self.script_function = script_function
-
 conn = sqlite3.connect('vin.db')
 c = conn.cursor()
 
@@ -28,22 +19,19 @@ def train():
     train() 
 
   if option == 'teach':
-    # ! script_category = select_category()
-    # print(script_category)
     print('I need keywords, anti keywords, what I say, and execution script')
     name=str(input("What do I do? "))
     super_keywords = str(input("[Super Keywords] This is searched first (sep=,): ")).strip()
-    keywords=str(input("[keywords] *don't copy super kw in here(sep=,): " )).strip()
     anti_keywords=str(input("[ANTI keywords]These keywords will abort the execution process (sep=,): ")).strip()
     script_function=str(input("Make sure to check with your scripts in ai-actions.py (e.g. move_folder): ")).strip()
   # Creates Table
-    ai_entry=(name, super_keywords, keywords, anti_keywords, script_function)
+  # keywords is empty this is handled by the engine
+    ai_entry=(name, super_keywords, '', anti_keywords, script_function)
     # if the table does not exist
     c.execute("CREATE TABLE IF NOT EXISTS AI(name TEXT, super_keywords TEXT, keywords TEXT, antikeywords TEXT, script_function TEXT)")
     c.execute(f'''INSERT INTO AI(name, super_keywords, keywords, antikeywords, script_function) VALUES(?, ?, ?, ?, ?)''', ai_entry)
 
-    # We can also close the connection if we are done with it.
-    # Just be sure any changes have been committed or they will be lost.
+    # Commit changes
     done()
   elif option == 'edit':
     c.execute('SELECT name FROM AI')
