@@ -75,13 +75,19 @@ def ai(ask):
   printing.ai_speak(f'Is the action "{best_match[0]}" correct?')
   was_engine_accurate = str(printing.user_input())
   # // was_engine_accurate = printing.ai.set(f'Is the action {best_match[0]} correct?')
+  shouldExecute = True
   # Accuracy learning
   if was_engine_accurate == 'yes':
     add_unique_keywords(best_script_match, lowercase_ask_list)
-    # Execute script
-  else:
+  elif was_engine_accurate == 'no':
     add_unique_antikeywords(best_script_match, lowercase_ask_list)
+    shouldExecute=False
     printing.ai_speak('How unfortunate, added to antikeywords, I suggest training')
+  # Execute Script
+  if shouldExecute:
+    printing.ai_speak('Executing...')
+  else:
+    printing.ai_speak('Not executing...')
   printing.ai_speak("What should I do next?")
   user_ask = str(printing.user_input())
   ai(user_ask)
