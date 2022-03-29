@@ -1,6 +1,6 @@
 import sqlite3
 import util
-from scripts import os
+from scripts import os, automation
 import printing
 
 conn = sqlite3.connect('vin.db')

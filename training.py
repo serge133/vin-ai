@@ -1,7 +1,6 @@
 import sqlite3
 from uuid import uuid4
 import util
-from scripts import OSactions
 from coloring_terminal import bcolors
 from engine import verbose_ai
 
