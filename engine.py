@@ -10,41 +10,53 @@ c = conn.cursor()
 def goodbye():
   printing.ai_speak("Have a nice day :)")
 
+# script function is unique
+def add_unique_keywords(script_function, lowercase_ask_list):
+  c.execute(f'SELECT keywords from AI WHERE script_function=?', (script_function,))
+  # gets just a string of keywords
+  keywords = c.fetchall()[0][0]
+  for word in lowercase_ask_list:
+    if word not in keywords:
+      keywords+=f',{word}'
+  
+  c.execute(f'UPDATE AI SET keywords = "{keywords}" WHERE script_function = "{script_function}"')
+  conn.commit()
+  
+
+
+
 def ai(ask):
   lowercase_ask = ask.lower().strip()
-  c.execute('SELECT name, super_keywords, keywords, antikeywords, script_category from AI')
+  lowercase_ask_list = lowercase_ask.split(' ')
+  c.execute('SELECT name, super_keywords, keywords, antikeywords, script_function from AI')
   rows = c.fetchall()
-
-
+  # Algorithm for finding best match 
   def match():
     points_array = []
     for row in rows:
       points = 0
-      super_keywords=row[1].split(',')
-      keywords=row[2].split(',')
-      antikeywords = row[3].split(',')
-      for super_keyword in super_keywords:
-        if super_keyword in lowercase_ask:
+      super_keywords=row[1]
+      keywords=row[2]
+      anti_keywords = row[3]
+      # tests super keywords first
+      for word in lowercase_ask_list:
+        if word in super_keywords:
+          print(word)
+          print(super_keywords)
           points+=2
-          
-      if points > 0:
-        for keyword in keywords:
-          if keyword in lowercase_ask:
-            points+=1
-        for antikeyword in antikeywords:
-          if antikeyword in lowercase_ask:
-            points-=2
+          print(points)
+        if word in keywords:
+          points+=1
+        if word in anti_keywords:
+          points-=2
       points_array.append(points)
+    print(points_array)
     largest_index = util.index_of_largest_element(points_array)
     matched = rows[largest_index]
     return matched
   # chosen
-  best_category = match()
-  script_category = match()[4]
-
-  c.execute(f'SELECT name, super_keywords, keywords, antikeywords, script_function from {script_category}')
-  rows = c.fetchall()
   best_match = match()
+  # The script name
   best_script_match = best_match[4]
   if lowercase_ask == 'exit':
     return goodbye()
@@ -53,8 +65,8 @@ def ai(ask):
   # // was_engine_accurate = printing.ai.set(f'Is the action {best_match[0]} correct?')
   # Accuracy learning
   if was_engine_accurate == 'yes':
-    eval(f'{best_script_match}("{lowercase_ask}", {best_category}, {best_match})')
-    # Run again
+    add_unique_keywords(best_script_match, lowercase_ask_list)
+    # Execute script
   else:
     printing.ai_speak('That is unfortunate, I suggest exit and type aosa --train to train me')
   printing.ai_speak("What should I do next?")
