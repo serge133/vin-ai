@@ -1,7 +1,6 @@
 import sqlite3
 import util
-from scripts import OSactions
-from scripts import AIactions
+from scripts import os
 import printing
 
 conn = sqlite3.connect('vin.db')
@@ -33,9 +32,6 @@ def add_unique_antikeywords(script_function, lowercase_ask_list):
   
   c.execute(f'UPDATE AI SET antikeywords = "{antikeywords}" WHERE script_function = "{script_function}"')
   conn.commit()
-  
-
-
 
 def ai(ask):
   lowercase_ask = ask.lower().strip()
@@ -86,6 +82,9 @@ def ai(ask):
   # Execute Script
   if shouldExecute:
     printing.ai_speak('Executing...')
+    # The script execution
+    # ? Can not handle parameters yet
+    eval(f'{best_script_match}()')
   else:
     printing.ai_speak('Not executing...')
   printing.ai_speak("What should I do next?")
