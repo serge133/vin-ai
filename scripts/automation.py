@@ -1,37 +1,53 @@
 from pynput import keyboard, mouse
-import time
-import printing
 from scripts import util
-from urllib import request
+import requests
+import json
+import printing
 
-def openCanvas():
-    ms = mouse.Controller()
-    kb = keyboard.Controller()
-    ms.position = (1659, 95)
-    ms.click(mouse.Button.left)
-    time.sleep(3.0)
-    kb.press(keyboard.Key.backspace)
-    kb.release(keyboard.Key.backspace)
-    util.type("https://ssoshib.fhda.edu/idp/profile/SAML2/Redirect/SSO?execution=e3s1")
-    kb.press(keyboard.Key.enter)
-    kb.release(keyboard.Key.enter)
-    time.sleep(1.0)
-    ms.position = (1376, 399)
-    ms.click(mouse.Button.left)
-    ms.release(mouse.Button.left)
-    kb.type("20482662")
-    ms.position = (1374, 448)
-    time.sleep(0.5)
-    kb.type("g8260Mic")
-    ms.position = (1367, 513)
-    ms.click(mouse.Button.left)
-    ms.release(mouse.Button.left)
-
-    
+# ? From Canvas
 
 
-    # webUrl = request.urlopen("https://ssoshib.fhda.edu/idp/profile/SAML2/Redirect/SSO?execution=e3s1")
-    # print(webUrl.getcode())
+def getGrades():
+    # ms = mouse.Controller()
+    # kb = keyboard.Controller()
+    # ms.position = (1659, 95)
+    # ms.click(mouse.Button.left)
+    # time.sleep(3.0)
+    # kb.press(keyboard.Key.backspace)
+    # kb.release(keyboard.Key.backspace)
+    # util.type("https://deanza.instructure.com/")
 
-    # webData = webUrl.read()
-    # print(webData)
+    grades = requests.get(
+        'https://deanza.instructure.com/api/v1/users/175330/enrollments?access_token=8683~ipweCk5uzSEnnrn6DdkIDuYoObJ1VaBKyzaEJ22YOKOlo5Wl6eeFjootKqzb4VOJ')
+
+    enrollments_dict = json.loads(grades.content)
+    # f = open('save.json', 'w')
+    # f.write(str(response.content))
+    # f.close()
+    courses = requests.get(
+        'https://deanza.instructure.com/api/v1/users/175330/courses?access_token=8683~ipweCk5uzSEnnrn6DdkIDuYoObJ1VaBKyzaEJ22YOKOlo5Wl6eeFjootKqzb4VOJ'
+    )
+
+    courses_dict = json.loads(courses.content)
+
+    print("\nREPORT CARD")
+    for enrollment in enrollments_dict:
+        for course in courses_dict:
+            if course["id"] == enrollment["course_id"]:
+                try:
+                    grade = enrollment["grades"]["current_score"]
+                    message = f'{course["name"]}: {grade}%'
+
+                    if float(grade) >= 90:
+                        printing.print_good(message)
+                        printing.ai_speak("This is good :)", pre="\t")
+                    elif float(grade) >= 80:
+                        printing.print_eh(message)
+                        printing.ai_speak("This is eh :\\", pre="\t")
+                    else:
+                        printing.print_bad(message)
+                        printing.ai_speak(
+                            "Well you can do a little better than this :(\n", pre="\t")
+                except:
+                    break
+                break
