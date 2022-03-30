@@ -1,5 +1,7 @@
 import sqlite3
+from tracemalloc import stop
 import util
+# being used by sqlite
 from scripts import os, automation
 import printing
 
@@ -9,6 +11,7 @@ c = conn.cursor()
 
 def goodbye():
     printing.ai_speak("Have a nice day :)")
+    exit()
 
 # script function is unique for querying
 # adds unique keywords to the keywords section
@@ -74,9 +77,8 @@ def ai(ask):
     best_match = match()
     # The script name
     best_script_match = best_match[4]
-    if lowercase_ask == 'exit':
-        return goodbye()
-    printing.ai_speak(f'Is the action "{best_match[0]}" correct?')
+    action_name = best_match[0]
+    printing.ai_speak(f'Is the action "{action_name}" correct?')
     was_engine_accurate = str(printing.user_input())
     # // was_engine_accurate = printing.ai.set(f'Is the action {best_match[0]} correct?')
     shouldExecute = True
@@ -92,7 +94,7 @@ def ai(ask):
             'How unfortunate, added to antikeywords, I suggest training')
     # Execute Script
     if shouldExecute:
-        printing.ai_speak('Executing...')
+        printing.ai_speak(f'Executing... {action_name}')
         # The script execution
         # ? Can not handle parameters yet
         eval(f'{best_script_match}()')
