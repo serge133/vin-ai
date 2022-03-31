@@ -1,8 +1,10 @@
+from urllib import response
 from credentials import userId, apiKey
 from scripts import util
 import requests
 import json
 import printing
+from datetime import datetime
 
 # ? From Canvas
 
@@ -51,3 +53,47 @@ def getGrades():
                 except:
                     break
                 break
+
+
+def getCalEvents():
+
+    courses = requests.get(
+        f'https://deanza.instructure.com/api/v1/users/{userId}/courses?access_token={apiKey}'
+    )
+
+    courses_dict = json.loads(courses.content)
+    # f = open("save.json", "w")
+    # f.write(str(courses.content))
+    # f.close()
+    total_ass = 0
+    still_due = 0
+    past_ass = 0
+
+    for course in courses_dict:
+        try:
+            printing.print_good(course["name"])
+            assignments = requests.get(
+                f'https://deanza.instructure.com/api/v1/users/{userId}/courses/{course["id"]}/assignments?access_token={apiKey}'
+            )
+            assignments_dict = json.loads(assignments.content)
+            for assignment in assignments_dict:
+                total_ass += 1
+                date = assignment["due_at"][:-1]
+                formatted_date = datetime.fromisoformat(date)
+                today = datetime.now()
+                assDate = formatted_date.strftime('%b %d %A %I:%M:%S')
+                if today > formatted_date:
+                    # Past Assignments
+                    past_ass += 1
+                    printing.print_bad("\t" + assDate + " (PAST)")
+                else:
+                    # Current Assignments
+                    still_due += 1
+                    printing.print_good("\t" + assDate + " (STILL DUE)")
+
+        except:
+
+            continue
+    printing.ai_speak(f"Total assignments are: {total_ass}", pre="\t")
+    printing.ai_speak(f"Past assignments are: {past_ass}", pre="\t")
+    printing.ai_speak(f"Current assignments are: {still_due}", pre="\t")

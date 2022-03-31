@@ -2,7 +2,7 @@ import sqlite3
 from tracemalloc import stop
 import util
 # being used by sqlite
-from scripts import os, automation
+from scripts import canvas, os
 import printing
 
 conn = sqlite3.connect('vin.db')
