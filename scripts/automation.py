@@ -1,4 +1,4 @@
-from pynput import keyboard, mouse
+from credentials import userId, apiKey
 from scripts import util
 import requests
 import json
@@ -18,14 +18,14 @@ def getGrades():
     # util.type("https://deanza.instructure.com/")
 
     grades = requests.get(
-        'https://deanza.instructure.com/api/v1/users/175330/enrollments?access_token=8683~ipweCk5uzSEnnrn6DdkIDuYoObJ1VaBKyzaEJ22YOKOlo5Wl6eeFjootKqzb4VOJ')
+        f'https://deanza.instructure.com/api/v1/users/{userId}/enrollments?access_token={apiKey}')
 
     enrollments_dict = json.loads(grades.content)
     # f = open('save.json', 'w')
     # f.write(str(response.content))
     # f.close()
     courses = requests.get(
-        'https://deanza.instructure.com/api/v1/users/175330/courses?access_token=8683~ipweCk5uzSEnnrn6DdkIDuYoObJ1VaBKyzaEJ22YOKOlo5Wl6eeFjootKqzb4VOJ'
+        f'https://deanza.instructure.com/api/v1/users/{userId}/courses?access_token={apiKey}'
     )
 
     courses_dict = json.loads(courses.content)
