@@ -1,0 +1,68 @@
+- [ ]  **Apr 06 Wednesday 11:59:59 PM**
+<p>This is a quiz on the syllabus and course policies.&nbsp; You may take it as many times as you wish.</p>- [ ]  **Apr 06 Wednesday 11:59:00 PM**
+<p>There’s a saying that “you can only make one first impression”. Thus, for our first assignment, you’ll be completing a letter of introduction to help with that. Beyond making a (hopefully) positive first impression, this assignment gives you an opportunity to warm up your writing muscles, give you practice with audience-centered writing (I’m the audience here) allow me an opportunity to know you better and get a sense of how you write. Beyond this class, you may find yourself in a situation where you’ll have to write one to introduce yourself to a potential connection (i.e. “networking”), prospective mentor. . or heck, maybe to ask for an add code beyond the generic “hey prof got a spot in your class?”</p>
+<p>Write as much as you feel compelled to, but these are generally on the shorter side (so if you’re going over a page, then it’s likely too much). In your letter, you should address the following points:</p>
+<ul>
+<li>Your name and how you prefer to be addressed</li>
+<li>Your areas of interests and hobbies (it does not have to be related to academics)</li>
+<li>What areas your struggle with in regards to writing &amp; critical thinking?</li>
+<li>What past instructors have done to make previous classes a positive or meaningful learning experience</li>
+<li>Any additional information you feel I, as your instructor, should know that may help or hinder your performance this term.</li>
+<li>Any questions that you would like to ask me (something not addressed in the syllabus; about the course; about me).</li>
+</ul>
+<p>Focus on completion, not perfection. I am simply grading this based on completion: That said, please try your best to make this a coherent piece of writing (check for spelling; use paragraphs, not a wall of text, etc.) After all, it’s likely going to be my first meaningful communication with you!</p>
+<p>If you’re feeling especially stuck, I’m including a few resources on how to format a letter of introduction to give you an idea:</p>
+<p><a class="instructure_file_link inline_disabled external" href="https://www.thebalancecareers.com/letter-of-introduction-examples-and-writing-tips-2062593" target="_blank"><span>Letter of Introduction: Examples &amp; Writing Tips</span><span class="screenreader-only">&nbsp;(Links to an external site.)</span></a></p>
+<p><a class="instructure_file_link inline_disabled external" href="https://www.indeed.com/career-advice/career-development/letter-of-introduction" target="_blank"><span>Indeed.com:&nbsp; Letter of Introduction Overview &amp; Tips</span></a></p>- [ ]  **Apr 06 Wednesday 11:59:00 PM**
+<p></p>
+<p>Online classes can be extremely isolating. Although we may not be meeting face-to-face, it is still important to build community. Thus, this forum is an opportunity for us to learn about one another. Please respond to the following items below: <br></p>
+<p></p>
+<ul>
+<li>Your name and preferred nickname</li>
+<li>One of the weirdest or most interesting thing that's ever happened to you</li>
+<li>One of your favorite foods</li>
+<li>One of your hobbies</li>
+</ul>You are free to post anything else about yourself (..within reason -- please don't include something that I would have to report to the police). Feel free to post and respond to other posts that interest you as well!<br><br><p></p>- [ ]  **Apr 11 Monday 11:59:59 PM**
+<p>Please submit your copy of Essay #1 here. Please remember to only use .doc, .docx, or .rtf format when submitting. If you don't remember the specific guidelines for this assignment, you can find them at this link: <a title="Essay #1:  Writer Identity -Guidelines" href="https://deanza.instructure.com/courses/24557/pages/essay-number-1-writer-identity-guidelines" target="_blank" data-api-endpoint="https://deanza.instructure.com/api/v1/courses/24557/pages/essay-number-1-writer-identity-guidelines" data-api-returntype="Page">Essay #1 Guidelines.</a></p>
+<p>If you feel like you're struggling with this assignment and need additional help, or just want another set of eyes on your essay before you submit it, then don't hesitate to utilize NetTutor (located in our left navigation within Canvas) or use the following options below:</p>
+<p><a href="http://www.deanza.edu/studentsuccess/wrc/" target="_blank">De Anza Writing Resource Center</a></p>
+<p><a href="http://www.deanza.edu/studentsuccess/onlinetutoring/" target="_blank">SmartThinking</a></p>- [ ]  **Apr 25 Monday 11:59:00 PM**
+None- [ ]  **May 23 Monday 11:59:00 PM**
+None- [ ]  **Jun 15 Wednesday 11:59:59 PM**
+None- [ ]  **Apr 06 Wednesday 11:59:00 PM**
+<p>After looking through this week's readings and resources, hopefully you've expanded your definition of the term "argument". As with many concepts in the discipline of Communication Studies, argument is all around us! This exercise is going to shed some light on that. You have two options for this assignment:</p>
+<h2><span style="font-size: 14pt;">Option A - Argument in the Media</span></h2>
+<ol>
+<li>First, find an issue that you feel strongly about (either for or against). While you are welcome to pick anything, please try to avoid anything&nbsp;<em>too&nbsp;</em> trivial (I, for one, hate people that curl at the squat rack, but that's not the best topic here)</li>
+<li>Second, locate a media clip (a video on YouTube; an excerpt from a Podcast; etc.) with someone speaking for or against the topic. Post a link to the media. If it is longer in duration, please indicate the specific time you want us to focus on (i.e. if it's a 20 minute clip, indicate 'the relevant part is from 5:00-7:48)</li>
+<li>Third, identify the following key elements of the argument, if possible:&nbsp;&nbsp;<strong>the claim</strong> (there may be multiple; focus on the central one);&nbsp;<strong>the evidence</strong> (what is provided to support the argument); the&nbsp;<strong>warrant</strong> or underlying assumption (this may not be explicitly stated -- if you can't find it, don't worry!)</li>
+<li>Finally, indicate which of the rhetorical appeals (<strong>ethos, pathos,&nbsp;</strong>or&nbsp;<strong>logos</strong>) was most prominent in the argument, and how. Many clips will incorporate all 3 -- you only need to focus on&nbsp;<strong>one</strong>.</li>
+</ol>
+<h2><span style="font-size: 14pt;">Option B - Argument in Daily Life</span></h2>
+<ol>
+<li>Think of a disagreement you had within the last year or two with a friend, family member, co-worker, or significant other:&nbsp; Describe the nature of the argument, what it was over, and who instigated it. Remember -- this needn't be an all out heated debate</li>
+<li>Identify what the central&nbsp;<strong>claim</strong> to the argument was (i.e. what point were you or the other person trying to get across) as well as any&nbsp;<strong>evidence</strong> that you put forward to support your point&nbsp;</li>
+<li>Indicate which of the rhetorical appeals you or the other person relied upon to get the point across.</li>
+<li>Let us know the resolution of the argument:&nbsp; How did it turn out?</li>
+</ol>
+<h2><span style="font-size: 14pt;">Responses</span></h2>
+<p>Pick&nbsp;<strong>1</strong> of your classmates to respond to. The nature of the response will differ depending on the option:</p>
+<ul>
+<li><strong>Option A:&nbsp;&nbsp;</strong>Indicate if there were any missed claims; pick a rhetorical appeal that the initial poster did not focus on (i.e. if they picked&nbsp;<strong>logos</strong>, focus on&nbsp;<strong>ethos</strong> or&nbsp;<strong>pathos</strong>)</li>
+<li><strong>Option B:&nbsp;&nbsp;</strong>Indicate an alternate way that you might have approached the argument (whether you were the initial poster or the other person involved).</li>
+</ul>
+<p>It might seem initially complex, but this will help you get better at&nbsp; identifying the elements of argumentation all around you as the course goes on!</p>
+<p>&nbsp;</p>- [ ]  **Apr 13 Wednesday 11:59:00 PM**
+<p>There are countless examples and issues that we can explore in this class through the lens of argumentation, particularly as the focus of our class tends to be social issues. On the plus side, that gives us a lot of leeway in terms of topic selection. On the downside. . it can be a little overwhelming.</p>
+<p>This discussion is intended to help focus some of our class discussions moving forward, as well as begin to generate ideas for essay topics (particularly, but not limited to, Essay #2).&nbsp; For this discussion, please include the following:</p>
+<h2><span style="font-size: 14pt;">Initial Post</span></h2>
+<ol>
+<li>1 issue that you feel strongly about and would advocate for (or otherwise be interested in exploring), and <strong>why</strong></li>
+<li>1 issue that you you are strongly opposed to, and&nbsp;<strong>why</strong>.</li>
+<li>1 issue that you would rather not engage in during the class, and&nbsp;<strong>why</strong></li>
+</ol>
+<p>However you present the issues, please do so in a way that is respectful to your classmates (e.g. don't post something like "I don't want to engage with COVID-19 because people are just being whiny drama queens over it").</p>
+<h2><span style="font-size: 14pt;">Responses</span></h2>
+<p>Pick any&nbsp;<strong>one</strong> of your classmates.&nbsp; Select either the issue they are for, or against, and provide a link to a resource (cited in APA) format that helps support the argument (in the case of #1) or presents a possible counter argument (in the case of #2).</p>
+<p>Regardless of what option you choose, please be as respectful of their viewpoints as possible (i.e. refrain from directly attacking the person; belittling their viewpoint; dismissing it without providing suitable evidence).</p>- [ ]  **Apr 20 Wednesday 11:59:00 PM**
+None

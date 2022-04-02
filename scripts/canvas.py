@@ -1,3 +1,4 @@
+from threading import local
 from credentials import userId, apiKey
 import requests
 import json
@@ -60,6 +61,11 @@ def getGrades():
 
 def getCalEvents():
 
+    class Assignment:
+        def __init__(self, date, description):
+            self.date = date
+            self.description = description
+
     courses = requests.get(
         f'https://deanza.instructure.com/api/v1/users/{userId}/courses?access_token={apiKey}'
     )
@@ -72,14 +78,13 @@ def getCalEvents():
     still_due = 0
     past_ass = 0
 
-    showDescription = str(input("Show description [yes/no]: "))
-
     # f = open('test/course.json', 'w')
     # f.write(str(courses_dict[2]))
     # f.close()
 
     spring_quarter_course_start = datetime.fromisoformat("2022-03-14T16:09:42")
-
+    # saves to a to do list
+    output = []
     for course in courses_dict:
         # ! When printing with description it does not print all the assignments, make them in order at least to see most relevant
         try:
@@ -89,39 +94,64 @@ def getCalEvents():
             if course_start_date < spring_quarter_course_start:
                 continue
             printing.print_good(course["name"], bold=True)
+            output.append(f'<h1>{course["name"]}</h1>\n\n')
             assignments = requests.get(
                 f'https://deanza.instructure.com/api/v1/users/{userId}/courses/{course["id"]}/assignments?access_token={apiKey}'
             )
             assignments_dict = json.loads(assignments.content)
+            assignments_array = []
+            # process array of assignments
             for assignment in assignments_dict:
-                total_ass += 1
-                #  Removes last character can not parse the Z (
+
                 date = assignment["due_at"][:-1]
                 formatted_date = datetime.fromisoformat(date)
-                today = datetime.now()
+                # Pacific Time
                 localized_date = formatted_date - timedelta(hours=7)
-                assDate = localized_date.strftime(
-                    '%b %d %A %I:%M:%S %p')
 
-                if today > formatted_date:
+                assignments_array.append(Assignment(
+                    date=localized_date, description=assignment["description"]))
+
+            for i in range(1, len(assignments_array)):
+                # i is index
+                key = assignments_array[i]
+                j = i - 1
+
+                while j >= 0 and key.date < assignments_array[j].date:
+                    # Move the next element before the previous element
+                    assignments_array[j + 1] = assignments_array[j]
+                    j -= 1
+                assignments_array[j + 1] = key
+
+            for ass in assignments_array:
+                total_ass += 1
+                # Pacific Time Now
+                today = datetime.now() - timedelta(hours=7)
+                assDate = ass.date.strftime(
+                    '%b %d %A %I:%M:%S %p')
+                output.append(f'<h2><strong>{assDate}</strong></h2>\n')
+                if today > ass.date:
                     # Past Assignments
                     past_ass += 1
                     printing.print_bad("\t" + assDate + " (PAST)")
-                    if showDescription == 'yes':
-                        print(_formatHTML(assignment["description"]))
                 else:
                     # Current Assignments
                     still_due += 1
                     printing.print_good(
                         "\t" + assDate + " (STILL DUE)")
-                    # printing.print_good(
-                    #     "\t\t" + _formatHTML(assignment["description"]))
-                    if showDescription == 'yes':
-                        print(_formatHTML(assignment["description"]))
+                output.append(
+                    str(ass.description))
 
         except:
-
             continue
     printing.ai_speak(f"Total assignments are: {total_ass}", pre="\t")
     printing.ai_speak(f"Past assignments are: {past_ass}", pre="\t")
     printing.ai_speak(f"Current assignments are: {still_due}", pre="\t")
+    output.append(f"\n<h3>Total assignments are: {total_ass}</h3>\n")
+    output.append(f"<h3>Past assignments are: {past_ass}</h3>\n")
+    output.append(f"<h2>Current assignments are: {still_due}</h2>\n")
+    # ! Discussions are not here yet
+    output_string = '\n'.join(output)
+    f = open("Todo.html", "w")
+    f.write(output_string)
+    f.close()
+    printing.ai_speak("saved :)")
