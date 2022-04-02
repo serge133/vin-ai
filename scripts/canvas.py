@@ -1,10 +1,13 @@
-from urllib import response
 from credentials import userId, apiKey
-from scripts import util
 import requests
 import json
 import printing
-from datetime import datetime
+from datetime import datetime, timedelta
+import html2text
+
+
+def _formatHTML(string):
+    return html2text.html2text(string)
 
 # ? From Canvas
 
@@ -69,27 +72,52 @@ def getCalEvents():
     still_due = 0
     past_ass = 0
 
+    showDescription = str(input("Show description [yes/no]: "))
+
+    # f = open('test/course.json', 'w')
+    # f.write(str(courses_dict[2]))
+    # f.close()
+
+    spring_quarter_course_start = datetime.fromisoformat("2022-03-14T16:09:42")
+
     for course in courses_dict:
+        # ! When printing with description it does not print all the assignments, make them in order at least to see most relevant
         try:
-            printing.print_good(course["name"])
+            course_start_date = datetime.fromisoformat(
+                course["created_at"][:-1])
+            # Only spring quarter courses
+            if course_start_date < spring_quarter_course_start:
+                continue
+            printing.print_good(course["name"], bold=True)
             assignments = requests.get(
                 f'https://deanza.instructure.com/api/v1/users/{userId}/courses/{course["id"]}/assignments?access_token={apiKey}'
             )
             assignments_dict = json.loads(assignments.content)
             for assignment in assignments_dict:
                 total_ass += 1
+                #  Removes last character can not parse the Z (
                 date = assignment["due_at"][:-1]
                 formatted_date = datetime.fromisoformat(date)
                 today = datetime.now()
-                assDate = formatted_date.strftime('%b %d %A %I:%M:%S')
+                localized_date = formatted_date - timedelta(hours=7)
+                assDate = localized_date.strftime(
+                    '%b %d %A %I:%M:%S %p')
+
                 if today > formatted_date:
                     # Past Assignments
                     past_ass += 1
                     printing.print_bad("\t" + assDate + " (PAST)")
+                    if showDescription == 'yes':
+                        print(_formatHTML(assignment["description"]))
                 else:
                     # Current Assignments
                     still_due += 1
-                    printing.print_good("\t" + assDate + " (STILL DUE)")
+                    printing.print_good(
+                        "\t" + assDate + " (STILL DUE)")
+                    # printing.print_good(
+                    #     "\t\t" + _formatHTML(assignment["description"]))
+                    if showDescription == 'yes':
+                        print(_formatHTML(assignment["description"]))
 
         except:
 

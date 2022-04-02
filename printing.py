@@ -24,13 +24,13 @@ def print_error(message):
     print(f'{FAIL}ERROR - {message}{ENDC}')
 
 
-def print_good(message):
-    print(f'\t{OKGREEN}{message}{ENDC}')
+def print_good(message, bold=False):
+    print(f'\t{BOLD if bold else ""}{OKGREEN}{message}{ENDC}')
 
 
 def print_eh(message):
     print(f'\t{WARNING}{message}{ENDC}')
 
 
-def print_bad(message):
-    print(f'\t{FAIL}{message}{ENDC}')
+def print_bad(message, bold=False):
+    print(f'\t{BOLD if bold else ""}{FAIL}{message}{ENDC}')
