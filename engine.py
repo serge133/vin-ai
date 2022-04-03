@@ -48,18 +48,42 @@ def add_unique_antikeywords(script_function, lowercase_ask_list):
 def ai(ask):
     lowercase_ask = ask.lower().strip()
     lowercase_ask_list = lowercase_ask.split(' ')
+    potential_scripts = []
     c.execute(
         'SELECT name, super_keywords, keywords, antikeywords, script_function from AI')
-    rows = c.fetchall()
-    # Algorithm for finding best match
+    # #! VERY BAD
 
+    # Algorithm for finding best match
+    # This queries every word in the user input funnel alike scripts
+    # There will be duplicates and that is fine
+    exceptions = ["a", "the", "in"]
+    for word in lowercase_ask_list:
+        if word in exceptions or len(word) <= 2:
+            continue
+        c.execute(
+            f'SELECT * from AI where super_keywords LIKE "%{word}%"'
+        )
+        row = c.fetchall()
+        for script in row:
+            potential_scripts.append(script)
+        # c.execute(
+        #     f'SELECT * from AI where keywords LIKE %{word}%'
+        # )
+        # row = c.fetchall()
+        # for script in row:
+        #     potential_scripts.append(script)
+
+    # Remove duplicates
+    revised_potential_scripts = list(set(potential_scripts))
+
+# Keyword algorithm
     def match():
         points_array = []
-        for row in rows:
+        for script in revised_potential_scripts:
             points = 0
-            super_keywords = row[1]
-            keywords = row[2]
-            anti_keywords = row[3]
+            super_keywords = script[1]
+            keywords = script[2]
+            anti_keywords = script[3]
             # tests super keywords first
             for word in lowercase_ask_list:
                 if word in super_keywords:
@@ -71,10 +95,14 @@ def ai(ask):
             points_array.append(points)
         print("Vin Engine: ", points_array)
         largest_index = util.index_of_largest_element(points_array)
-        matched = rows[largest_index]
+        matched = potential_scripts[largest_index]
         return matched
-    # chosen
-    best_match = match()
+
+    best_match = revised_potential_scripts[0]
+
+    # Don't use keyword algorithm if there are one or zero scripts
+    if len(revised_potential_scripts) > 1:
+        best_match = match()
     # The script name
     best_script_match = best_match[4]
     action_name = best_match[0]
