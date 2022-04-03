@@ -29,7 +29,7 @@ def print_good(message, bold=False):
 
 
 def print_eh(message):
-    print(f'\t{WARNING}{message}{ENDC}')
+    print(f'{WARNING}WARNING - {message}{ENDC}')
 
 
 def print_bad(message, bold=False):
