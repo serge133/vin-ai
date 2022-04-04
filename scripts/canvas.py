@@ -62,9 +62,10 @@ def getGrades():
 def getCalEvents():
 
     class Assignment:
-        def __init__(self, date, description):
+        def __init__(self, date, description, name):
             self.date = date
             self.description = description
+            self.name = name
 
     courses = requests.get(
         f'https://deanza.instructure.com/api/v1/users/{userId}/courses?access_token={apiKey}'
@@ -84,7 +85,19 @@ def getCalEvents():
 
     spring_quarter_course_start = datetime.fromisoformat("2022-03-14T16:09:42")
     # saves to a to do list
-    output = []
+    output = ["""
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <link rel="stylesheet" href="report.css">
+                <meta charset="UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Canvas Report</title>
+            </head>
+            <body>
+            """
+              ]
     for course in courses_dict:
         # ! When printing with description it does not print all the assignments, make them in order at least to see most relevant
         try:
@@ -109,7 +122,7 @@ def getCalEvents():
                 localized_date = formatted_date - timedelta(hours=7)
 
                 assignments_array.append(Assignment(
-                    date=localized_date, description=assignment["description"]))
+                    date=localized_date, description=assignment["description"], name=assignment["name"]))
 
             for i in range(1, len(assignments_array)):
                 # i is index
@@ -128,7 +141,11 @@ def getCalEvents():
                 today = datetime.now() - timedelta(hours=7)
                 assDate = ass.date.strftime(
                     '%b %d %A %I:%M:%S %p')
-                output.append(f'<h2><strong>{assDate}</strong></h2>\n')
+                output.append(
+                    f'<h2><strong>{total_ass}) {ass.name}</strong></h2>\n')
+                output.append(
+                    f'<h3>DUE: {assDate}</h3>'
+                )
                 if today > ass.date:
                     # Past Assignments
                     past_ass += 1
@@ -137,7 +154,7 @@ def getCalEvents():
                     # Current Assignments
                     still_due += 1
                     printing.print_good(
-                        "\t" + assDate + " (STILL DUE)")
+                        f'\t{ass.name}: {assDate}(STILL DUE)')
                 output.append(
                     str(ass.description))
 
@@ -150,8 +167,9 @@ def getCalEvents():
     output.append(f"<h3>Past assignments are: {past_ass}</h3>\n")
     output.append(f"<h2>Current assignments are: {still_due}</h2>\n")
     # ! Discussions are not here yet
+    output.append("</body></html>")
     output_string = '\n'.join(output)
-    f = open("Todo.html", "w")
+    f = open("reports/Todo.html", "w")
     f.write(output_string)
     f.close()
     printing.ai_speak("saved :)")
