@@ -96,6 +96,7 @@ def getCalEvents():
                 <title>Canvas Report</title>
             </head>
             <body>
+            <p>*Note: there are no discussions here, check canvas for that</p>
             """
               ]
     for course in courses_dict:
